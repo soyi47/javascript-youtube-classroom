@@ -627,7 +627,7 @@ var YoutubeClassRoom = /*#__PURE__*/function () {
     key: "bindEvents",
     value: function bindEvents() {
       this.searchModalView.modal.addEventListener('searchKeyword', this.onSubmitSearchKeyword.bind(this));
-      this.searchModalView.modal.addEventListener('searchOnScroll', (0,_util__WEBPACK_IMPORTED_MODULE_6__.throttle)(this.searchOnScroll.bind(this), 100));
+      this.searchModalView.modal.addEventListener('searchOnScroll', (0,_util__WEBPACK_IMPORTED_MODULE_6__.debounce)(this.searchOnScroll.bind(this), 100));
       this.searchModalView.modal.addEventListener('saveVideo', this.onClickVideoSaveButton.bind(this));
     }
   }, {
@@ -707,7 +707,9 @@ var YoutubeClassRoom = /*#__PURE__*/function () {
           scrollTop = _e$detail.scrollTop,
           clientHeight = _e$detail.clientHeight,
           scrollHeight = _e$detail.scrollHeight;
-      if (scrollTop + clientHeight + 20 < scrollHeight) return true;
+      console.log(scrollTop, clientHeight, scrollHeight);
+      if (scrollTop + clientHeight + 10 < scrollHeight) return true;
+      console.log('impossibleToLoadMore');
 
       if (this.searchVideoManager.isLastPage) {
         alert(_constants__WEBPACK_IMPORTED_MODULE_5__.ALERT_MESSAGE.NO_MORE_SEARCH_RESULT);
@@ -762,7 +764,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "$": () => (/* binding */ $),
 /* harmony export */   "$$": () => (/* binding */ $$),
-/* harmony export */   "throttle": () => (/* binding */ throttle)
+/* harmony export */   "debounce": () => (/* binding */ debounce)
 /* harmony export */ });
 var $ = function $(selector) {
   var node = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document;
@@ -772,14 +774,11 @@ var $$ = function $$(selector) {
   var node = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document;
   return node.querySelectorAll(selector);
 };
-var throttle = function throttle(callback, delay) {
+var debounce = function debounce(callback, delay) {
   var timerId;
   return function (event) {
-    if (timerId) return;
-    timerId = setTimeout(function () {
-      callback(event);
-      timerId = null;
-    }, delay, event);
+    if (timerId) clearTimeout(timerId);
+    timerId = setTimeout(callback, delay, event);
   };
 };
 
