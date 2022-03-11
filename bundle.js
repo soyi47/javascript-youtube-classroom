@@ -707,7 +707,7 @@ var YoutubeClassRoom = /*#__PURE__*/function () {
           scrollTop = _e$detail.scrollTop,
           clientHeight = _e$detail.clientHeight,
           scrollHeight = _e$detail.scrollHeight;
-      if (scrollTop + clientHeight + 200 < scrollHeight) return true;
+      if (scrollTop + clientHeight + 20 < scrollHeight) return true;
 
       if (this.searchVideoManager.isLastPage) {
         alert(_constants__WEBPACK_IMPORTED_MODULE_5__.ALERT_MESSAGE.NO_MORE_SEARCH_RESULT);
