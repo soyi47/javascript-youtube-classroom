@@ -191,7 +191,8 @@ var SearchVideoManager = /*#__PURE__*/function () {
       try {
         (0,_validation__WEBPACK_IMPORTED_MODULE_2__.validateSearchKeyword)(keyword);
       } catch (err) {
-        return alert(err.message);
+        alert(err.message);
+        return;
       }
 
       _classPrivateFieldSet(this, _keyword, keyword);
@@ -204,7 +205,8 @@ var SearchVideoManager = /*#__PURE__*/function () {
     key: "searchOnScroll",
     value: function searchOnScroll() {
       if (_classPrivateFieldGet(this, _isLastPage)) {
-        return alert(_constants__WEBPACK_IMPORTED_MODULE_0__.ALERT_MESSAGE.NO_MORE_SEARCH_RESULT);
+        alert(_constants__WEBPACK_IMPORTED_MODULE_0__.ALERT_MESSAGE.NO_MORE_SEARCH_RESULT);
+        return;
       }
 
       this.search();
@@ -214,6 +216,7 @@ var SearchVideoManager = /*#__PURE__*/function () {
     value: function search() {
       var _this = this;
 
+      _util__WEBPACK_IMPORTED_MODULE_1__.event.dispatch('updateLoading');
       this.fetchYoutubeData().then(function (data) {
         return _this.processFetchedResult(data);
       }).then(function (fetchedData) {
@@ -586,9 +589,10 @@ var SearchResultView = /*#__PURE__*/function () {
   _createClass(SearchResultView, [{
     key: "bindEvents",
     value: function bindEvents() {
-      this.$searchResultVideoList.addEventListener('scroll', (0,_util__WEBPACK_IMPORTED_MODULE_0__.debounce)(this.onScrollVideoList.bind(this), 100));
+      this.$searchResultVideoList.addEventListener('scroll', (0,_util__WEBPACK_IMPORTED_MODULE_0__.debounce)(this.onScrollVideoList.bind(this), 500));
       this.$searchResultVideoList.addEventListener('click', this.onClickVideoSaveButton.bind(this));
       _util__WEBPACK_IMPORTED_MODULE_0__.event.addListener('resetSearchResult', this.resetSearchResult.bind(this));
+      _util__WEBPACK_IMPORTED_MODULE_0__.event.addListener('updateLoading', this.updateOnLoading.bind(this));
       _util__WEBPACK_IMPORTED_MODULE_0__.event.addListener('updateFetchedData', this.updateOnNewDataReceived.bind(this));
       _util__WEBPACK_IMPORTED_MODULE_0__.event.addListener('showSearchErrorResult', this.showErrorResult.bind(this));
       _util__WEBPACK_IMPORTED_MODULE_0__.event.addListener('saveVideoSuccess', this.updateOnSaveVideoSuccess.bind(this));
@@ -600,8 +604,7 @@ var SearchResultView = /*#__PURE__*/function () {
           scrollTop = _this$$searchResultVi.scrollTop,
           clientHeight = _this$$searchResultVi.clientHeight,
           scrollHeight = _this$$searchResultVi.scrollHeight;
-      if (scrollTop + clientHeight + 10 < scrollHeight) return;
-      this.changeSkeletonListItemVisibility();
+      if (scrollTop + clientHeight + 50 < scrollHeight) return;
       _util__WEBPACK_IMPORTED_MODULE_0__.event.dispatch('searchOnScroll');
     }
   }, {
@@ -623,6 +626,11 @@ var SearchResultView = /*#__PURE__*/function () {
       this.$searchResultVideoList.scrollTo(0, 0);
       this.$searchResultVideoList.innerHTML = _template__WEBPACK_IMPORTED_MODULE_1__.template.skeletonListItem();
       this.$firstSkeletonListItem = (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('.skeleton', this.$searchResultVideoList);
+    }
+  }, {
+    key: "updateOnLoading",
+    value: function updateOnLoading() {
+      this.changeSkeletonListItemVisibility();
     }
   }, {
     key: "updateOnNewDataReceived",
@@ -722,7 +730,7 @@ var template = {
     return "<li class=\"video-item\" data-video-id=\"".concat(id, "\">\n      <img src=").concat(thumbnail, " alt=\"video-item-thumbnail\" class=\"video-item__thumbnail\">\n      <h4 class=\"video-item__title\">").concat(title, "</h4>\n      <p class=\"video-item__channel-name\">").concat(channelName, "</p>\n      <p class=\"video-item__published-date\">").concat(dateTemplate(publishedDate), "</p>\n      ").concat(saved ? '' : '<button class="video-item__save-button button">⬇ 저장</button>', "\n      </li>\n    ");
   },
   skeletonListItem: function skeletonListItem() {
-    return "<li class=\"skeleton\">\n      <div class=\"image\"></div>\n      <p class=\"line\"></p>\n      <p class=\"line\"></p>\n    </li>".repeat(10);
+    return "<li class=\"skeleton hide\">\n      <div class=\"image\"></div>\n      <p class=\"line\"></p>\n      <p class=\"line\"></p>\n    </li>".repeat(10);
   }
 };
 var MESSAGE = {
