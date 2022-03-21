@@ -43,16 +43,17 @@ var SaveVideoManager = /*#__PURE__*/function () {
   _createClass(SaveVideoManager, [{
     key: "updateSavedVideos",
     value: function updateSavedVideos() {
-      var videos = this.storage.videos;
-      var response = Array.isArray(videos) ? _constants__WEBPACK_IMPORTED_MODULE_0__.RESULT.SUCCESS : _constants__WEBPACK_IMPORTED_MODULE_0__.RESULT.FAIL;
-      var unwatchedVideos = Array.isArray(videos) ? videos.filter(function (video) {
+      var _this$storage = this.storage,
+          videos = _this$storage.videos,
+          status = _this$storage.status;
+      var unwatchedVideos = videos.filter(function (video) {
         return video.watched === false;
-      }) : [];
-      var watchedVideos = Array.isArray(videos) ? videos.filter(function (video) {
+      });
+      var watchedVideos = videos.filter(function (video) {
         return video.watched === true;
-      }) : [];
+      });
       (0,_util_event__WEBPACK_IMPORTED_MODULE_2__.dispatch)(_constants__WEBPACK_IMPORTED_MODULE_0__.EVENT.UPDATE_SAVED_VIDEO_LIST, {
-        response: response,
+        response: status,
         unwatchedVideos: unwatchedVideos,
         watchedVideos: watchedVideos
       }, (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('#app'));
@@ -363,6 +364,8 @@ var getData = function getData(key) {
 
 var _videos = /*#__PURE__*/new WeakMap();
 
+var _status = /*#__PURE__*/new WeakMap();
+
 var _getLocalStorageVideos = /*#__PURE__*/new WeakSet();
 
 var _setLocalStorageVideos = /*#__PURE__*/new WeakSet();
@@ -380,6 +383,13 @@ var Storage = /*#__PURE__*/function () {
       value: void 0
     });
 
+    _classPrivateFieldInitSpec(this, _status, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldSet(this, _status, null);
+
     _classPrivateFieldSet(this, _videos, _classPrivateMethodGet(this, _getLocalStorageVideos, _getLocalStorageVideos2).call(this));
   }
 
@@ -387,6 +397,11 @@ var Storage = /*#__PURE__*/function () {
     key: "videos",
     get: function get() {
       return _classPrivateFieldGet(this, _videos);
+    }
+  }, {
+    key: "status",
+    get: function get() {
+      return _classPrivateFieldGet(this, _status);
     }
   }, {
     key: "saveVideo",
@@ -451,8 +466,13 @@ function _getLocalStorageVideos2() {
   try {
     videos = getData('videos') || [];
   } catch (err) {
-    videos = 'ERROR';
+    _classPrivateFieldSet(this, _status, _constants__WEBPACK_IMPORTED_MODULE_0__.RESULT.FAIL);
+
+    console.error(_constants__WEBPACK_IMPORTED_MODULE_0__.ERROR_MESSAGE.FAIL_TO_READ_SAVED_VIDEO_INFO);
+    return [];
   }
+
+  _classPrivateFieldSet(this, _status, _constants__WEBPACK_IMPORTED_MODULE_0__.RESULT.SUCCESS);
 
   return videos;
 }
@@ -1217,7 +1237,7 @@ function generateFetchURL(keyword, nextPageToken) {
     searchParams.append('pageToken', nextPageToken);
   }
 
-  return YOUTUBE_API_URL + searchParams.toString();
+  return DUMMY_YOUTUBE_API_URL + searchParams.toString();
 }
 
 function fetchYoutubeData(keyword, nextPageToken) {
