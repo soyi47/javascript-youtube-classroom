@@ -477,54 +477,80 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util */ "./src/js/util/index.js");
 /* harmony import */ var _SavedVideoListView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SavedVideoListView */ "./src/js/View/SavedVideoListView.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
 
-var HomeView = /*#__PURE__*/_createClass(function HomeView(_ref) {
-  var _this = this;
+var HomeView = /*#__PURE__*/function () {
+  function HomeView(_ref) {
+    var _this = this;
 
-  var saveVideoManager = _ref.saveVideoManager;
+    var saveVideoManager = _ref.saveVideoManager;
 
-  _classCallCheck(this, HomeView);
+    _classCallCheck(this, HomeView);
 
-  _defineProperty(this, "onClickUnwatchedVideoListButton", function () {
-    if ((0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#unwatched-video-list').classList.contains('hide')) {
-      _this.toggleVideoList();
+    _defineProperty(this, "onClickUnwatchedVideoListButton", function () {
+      if (_this.$unwatchedVideoList.classList.contains('hide')) {
+        _this.toggleVideoList();
+      }
+    });
+
+    _defineProperty(this, "onClickWatchedVideoListButton", function () {
+      if (_this.$watchedVideoList.classList.contains('hide')) {
+        _this.toggleVideoList();
+      }
+    });
+
+    _defineProperty(this, "toggleVideoList", function () {
+      _this.$unwatchedVideoList.classList.toggle('hide');
+
+      _this.$watchedVideoList.classList.toggle('hide');
+
+      _this.$unwatchedVideoListButton.classList.toggle('selected');
+
+      _this.$watchedVideoListButton.classList.toggle('selected');
+    });
+
+    _defineProperty(this, "openModal", function () {
+      _this.$modalContainer.classList.remove('hide');
+    });
+
+    this.savedVideoListView = new _SavedVideoListView__WEBPACK_IMPORTED_MODULE_1__["default"]({
+      saveVideoManager: saveVideoManager
+    });
+    this.initDOMs();
+    this.bindEvents();
+  }
+
+  _createClass(HomeView, [{
+    key: "initDOMs",
+    value: function initDOMs() {
+      this.$app = (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#app');
+      this.$modalContainer = (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#modal-container');
+      this.$searchModalButton = (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#search-modal-button', this.$app);
+      this.$unwatchedVideoListButton = (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#unwatched-video-list-button', this.$app);
+      this.$watchedVideoListButton = (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#watched-video-list-button', this.$app);
+      this.$unwatchedVideoList = (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#unwatched-video-list', this.$app);
+      this.$watchedVideoList = (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#watched-video-list', this.$app);
     }
-  });
-
-  _defineProperty(this, "onClickWatchedVideoListButton", function () {
-    if ((0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#watched-video-list').classList.contains('hide')) {
-      _this.toggleVideoList();
+  }, {
+    key: "bindEvents",
+    value: function bindEvents() {
+      this.$unwatchedVideoListButton.addEventListener('click', this.onClickUnwatchedVideoListButton);
+      this.$watchedVideoListButton.addEventListener('click', this.onClickWatchedVideoListButton);
+      this.$searchModalButton.addEventListener('click', this.openModal);
     }
-  });
+  }]);
 
-  _defineProperty(this, "toggleVideoList", function () {
-    (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#unwatched-video-list').classList.toggle('hide');
-    (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#watched-video-list').classList.toggle('hide');
-    (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#unwatched-video-list-button').classList.toggle('selected');
-    (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#watched-video-list-button').classList.toggle('selected');
-  });
-
-  _defineProperty(this, "openModal", function () {
-    (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#modal-container').classList.remove('hide');
-  });
-
-  this.savedVideoListView = new _SavedVideoListView__WEBPACK_IMPORTED_MODULE_1__["default"]({
-    saveVideoManager: saveVideoManager
-  });
-  (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#unwatched-video-list-button').addEventListener('click', this.onClickUnwatchedVideoListButton);
-  (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#watched-video-list-button').addEventListener('click', this.onClickWatchedVideoListButton);
-  (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#search-modal-button').addEventListener('click', this.openModal);
-});
+  return HomeView;
+}();
 
 
 
@@ -543,11 +569,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/js/constants.js");
 /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util */ "./src/js/util/index.js");
 /* harmony import */ var _template__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./template */ "./src/js/View/template.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -555,90 +581,109 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var SavedVideoListView = /*#__PURE__*/_createClass(function SavedVideoListView(_ref) {
-  var _this = this;
+var SavedVideoListView = /*#__PURE__*/function () {
+  function SavedVideoListView(_ref) {
+    var _this = this;
 
-  var saveVideoManager = _ref.saveVideoManager;
+    var saveVideoManager = _ref.saveVideoManager;
 
-  _classCallCheck(this, SavedVideoListView);
+    _classCallCheck(this, SavedVideoListView);
 
-  _defineProperty(this, "onClickIconButton", function (e) {
-    if (e.target.classList.contains('check-watched-button')) {
-      _this.onClickCheckWatchedButton(e);
-    }
+    _defineProperty(this, "onClickIconButton", function (e) {
+      if (e.target.classList.contains('check-watched-button')) {
+        _this.onClickCheckWatchedButton(e);
+      }
 
-    if (e.target.classList.contains('delete-button')) {
-      _this.onClickDeleteButton(e);
-    }
-  });
+      if (e.target.classList.contains('delete-button')) {
+        _this.onClickDeleteButton(e);
+      }
+    });
 
-  _defineProperty(this, "onClickCheckWatchedButton", function (e) {
-    var id = e.target.parentNode.dataset.id;
-
-    _this.saveVideoManager.changeWatched(id);
-  });
-
-  _defineProperty(this, "onClickDeleteButton", function (e) {
-    if (window.confirm(_constants__WEBPACK_IMPORTED_MODULE_0__.GUIDE_MESSAGE.CONFIRM_DELETE)) {
+    _defineProperty(this, "onClickCheckWatchedButton", function (e) {
       var id = e.target.parentNode.dataset.id;
 
-      _this.saveVideoManager.deleteVideo(id);
+      _this.saveVideoManager.changeWatched(id);
+    });
+
+    _defineProperty(this, "onClickDeleteButton", function (e) {
+      if (window.confirm(_constants__WEBPACK_IMPORTED_MODULE_0__.GUIDE_MESSAGE.CONFIRM_DELETE)) {
+        var id = e.target.parentNode.dataset.id;
+
+        _this.saveVideoManager.deleteVideo(id);
+      }
+    });
+
+    _defineProperty(this, "updateOnSavedVideoList", function (e) {
+      _this.updateOnUnwatchedVideoList(e);
+
+      _this.updateOnWatchedVideoList(e);
+    });
+
+    _defineProperty(this, "updateOnUnwatchedVideoList", function (e) {
+      var _e$detail = e.detail,
+          response = _e$detail.response,
+          unwatchedVideos = _e$detail.unwatchedVideos;
+
+      if (response !== _constants__WEBPACK_IMPORTED_MODULE_0__.RESULT.SUCCESS) {
+        _this.$unwatchedVideoList.innerHTML = _template__WEBPACK_IMPORTED_MODULE_2__.template.failToReadSavedVideo;
+        return;
+      }
+
+      if (unwatchedVideos.length === 0) {
+        _this.$unwatchedVideoList.innerHTML = _template__WEBPACK_IMPORTED_MODULE_2__.template.noUnwatchedVideo;
+        return;
+      }
+
+      var unwatchedVideoListItems = unwatchedVideos.map(function (video) {
+        return _template__WEBPACK_IMPORTED_MODULE_2__.template.savedVideoListItem(video);
+      }).join('');
+      _this.$unwatchedVideoList.innerHTML = unwatchedVideoListItems;
+    });
+
+    _defineProperty(this, "updateOnWatchedVideoList", function (e) {
+      var _e$detail2 = e.detail,
+          response = _e$detail2.response,
+          watchedVideos = _e$detail2.watchedVideos;
+
+      if (response !== _constants__WEBPACK_IMPORTED_MODULE_0__.RESULT.SUCCESS) {
+        _this.$watchedVideoList.innerHTML = _template__WEBPACK_IMPORTED_MODULE_2__.template.failToReadSavedVideo;
+        return;
+      }
+
+      if (watchedVideos.length === 0) {
+        _this.$watchedVideoList.innerHTML = _template__WEBPACK_IMPORTED_MODULE_2__.template.noWatchedVideo;
+        return;
+      }
+
+      var watchedVideoListItems = watchedVideos.map(function (video) {
+        return _template__WEBPACK_IMPORTED_MODULE_2__.template.savedVideoListItem(video);
+      }).join('');
+      _this.$watchedVideoList.innerHTML = watchedVideoListItems;
+    });
+
+    this.saveVideoManager = saveVideoManager;
+    this.initDOMs();
+    this.bindEvents();
+  }
+
+  _createClass(SavedVideoListView, [{
+    key: "initDOMs",
+    value: function initDOMs() {
+      this.$app = (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('#app');
+      this.$unwatchedVideoList = (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('#unwatched-video-list', this.$app);
+      this.$watchedVideoList = (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('#watched-video-list', this.$app);
     }
-  });
-
-  _defineProperty(this, "updateOnSavedVideoList", function (e) {
-    _this.updateOnUnwatchedVideoList(e);
-
-    _this.updateOnWatchedVideoList(e);
-  });
-
-  _defineProperty(this, "updateOnUnwatchedVideoList", function (e) {
-    var _e$detail = e.detail,
-        response = _e$detail.response,
-        unwatchedVideos = _e$detail.unwatchedVideos;
-
-    if (response !== _constants__WEBPACK_IMPORTED_MODULE_0__.RESULT.SUCCESS) {
-      (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('#unwatched-video-list').innerHTML = _template__WEBPACK_IMPORTED_MODULE_2__.template.failToReadSavedVideo;
-      return;
+  }, {
+    key: "bindEvents",
+    value: function bindEvents() {
+      this.$unwatchedVideoList.addEventListener('click', this.onClickIconButton);
+      this.$watchedVideoList.addEventListener('click', this.onClickIconButton);
+      this.$app.addEventListener(_constants__WEBPACK_IMPORTED_MODULE_0__.EVENT.UPDATE_SAVED_VIDEO_LIST, this.updateOnSavedVideoList);
     }
+  }]);
 
-    if (unwatchedVideos.length === 0) {
-      (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('#unwatched-video-list').innerHTML = _template__WEBPACK_IMPORTED_MODULE_2__.template.noUnwatchedVideo;
-      return;
-    }
-
-    var unwatchedVideoListItems = unwatchedVideos.map(function (video) {
-      return _template__WEBPACK_IMPORTED_MODULE_2__.template.savedVideoListItem(video);
-    }).join('');
-    (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('#unwatched-video-list').innerHTML = unwatchedVideoListItems;
-  });
-
-  _defineProperty(this, "updateOnWatchedVideoList", function (e) {
-    var _e$detail2 = e.detail,
-        response = _e$detail2.response,
-        watchedVideos = _e$detail2.watchedVideos;
-
-    if (response !== _constants__WEBPACK_IMPORTED_MODULE_0__.RESULT.SUCCESS) {
-      (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('#watched-video-list').innerHTML = _template__WEBPACK_IMPORTED_MODULE_2__.template.failToReadSavedVideo;
-      return;
-    }
-
-    if (watchedVideos.length === 0) {
-      (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('#watched-video-list').innerHTML = _template__WEBPACK_IMPORTED_MODULE_2__.template.noWatchedVideo;
-      return;
-    }
-
-    var watchedVideoListItems = watchedVideos.map(function (video) {
-      return _template__WEBPACK_IMPORTED_MODULE_2__.template.savedVideoListItem(video);
-    }).join('');
-    (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('#watched-video-list').innerHTML = watchedVideoListItems;
-  });
-
-  this.saveVideoManager = saveVideoManager;
-  (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('#unwatched-video-list').addEventListener('click', this.onClickIconButton);
-  (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('#watched-video-list').addEventListener('click', this.onClickIconButton);
-  (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('#app').addEventListener(_constants__WEBPACK_IMPORTED_MODULE_0__.EVENT.UPDATE_SAVED_VIDEO_LIST, this.updateOnSavedVideoList);
-});
+  return SavedVideoListView;
+}();
 
 
 
@@ -655,33 +700,52 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ SearchKeywordFormView)
 /* harmony export */ });
 /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util */ "./src/js/util/index.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
-var SearchKeywordFormView = /*#__PURE__*/_createClass(function SearchKeywordFormView(_ref) {
-  var _this = this;
+var SearchKeywordFormView = /*#__PURE__*/function () {
+  function SearchKeywordFormView(_ref) {
+    var _this = this;
 
-  var searchVideoManager = _ref.searchVideoManager;
+    var searchVideoManager = _ref.searchVideoManager;
 
-  _classCallCheck(this, SearchKeywordFormView);
+    _classCallCheck(this, SearchKeywordFormView);
 
-  _defineProperty(this, "onSubmitSearchForm", function (e) {
-    e.preventDefault();
-    var keyword = (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#search-input-keyword').value;
+    _defineProperty(this, "onSubmitSearchForm", function (e) {
+      e.preventDefault();
+      var keyword = _this.$searchKeywordInput.value;
 
-    _this.searchVideoManager.searchWithKeyword(keyword);
-  });
+      _this.searchVideoManager.searchWithKeyword(keyword);
+    });
 
-  this.searchVideoManager = searchVideoManager;
-  (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#search-form').addEventListener('submit', this.onSubmitSearchForm);
-});
+    this.searchVideoManager = searchVideoManager;
+    this.initDOMs();
+    this.bindEvents();
+  }
+
+  _createClass(SearchKeywordFormView, [{
+    key: "initDOMs",
+    value: function initDOMs() {
+      this.$modalContainer = (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#modal-container');
+      this.$searchForm = (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#search-form', this.$modalContainer);
+      this.$searchKeywordInput = (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#search-input-keyword', this.$searchForm);
+    }
+  }, {
+    key: "bindEvents",
+    value: function bindEvents() {
+      this.$searchForm.addEventListener('submit', this.onSubmitSearchForm);
+    }
+  }]);
+
+  return SearchKeywordFormView;
+}();
 
 
 
@@ -700,11 +764,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util */ "./src/js/util/index.js");
 /* harmony import */ var _SearchKeywordFormView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SearchKeywordFormView */ "./src/js/View/SearchKeywordFormView.js");
 /* harmony import */ var _SearchResultView__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SearchResultView */ "./src/js/View/SearchResultView.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -712,34 +776,52 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var SearchModalView = /*#__PURE__*/_createClass(function SearchModalView(_ref) {
-  var _this = this;
+var SearchModalView = /*#__PURE__*/function () {
+  function SearchModalView(_ref) {
+    var _this = this;
 
-  var searchVideoManager = _ref.searchVideoManager,
-      saveVideoManager = _ref.saveVideoManager;
+    var searchVideoManager = _ref.searchVideoManager,
+        saveVideoManager = _ref.saveVideoManager;
 
-  _classCallCheck(this, SearchModalView);
+    _classCallCheck(this, SearchModalView);
 
-  _defineProperty(this, "onKeyDown", function (e) {
-    if (e.key === 'Escape' && !(0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#modal-container').classList.contains('hide')) {
-      _this.closeModal();
+    _defineProperty(this, "onKeyDown", function (e) {
+      if (e.key === 'Escape' && !_this.$modalContainer.classList.contains('hide')) {
+        _this.closeModal();
+      }
+    });
+
+    _defineProperty(this, "closeModal", function () {
+      _this.$modalContainer.classList.add('hide');
+    });
+
+    this.searchKeywordFormView = new _SearchKeywordFormView__WEBPACK_IMPORTED_MODULE_1__["default"]({
+      searchVideoManager: searchVideoManager
+    });
+    this.searchResultView = new _SearchResultView__WEBPACK_IMPORTED_MODULE_2__["default"]({
+      searchVideoManager: searchVideoManager,
+      saveVideoManager: saveVideoManager
+    });
+    this.initDOMs();
+    this.bindEvents();
+  }
+
+  _createClass(SearchModalView, [{
+    key: "initDOMs",
+    value: function initDOMs() {
+      this.$modalContainer = (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#modal-container');
+      this.$dimmer = (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('.dimmer', this.$modalContainer);
     }
-  });
+  }, {
+    key: "bindEvents",
+    value: function bindEvents() {
+      this.$dimmer.addEventListener('click', this.closeModal);
+      window.addEventListener('keydown', this.onKeyDown);
+    }
+  }]);
 
-  _defineProperty(this, "closeModal", function () {
-    (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('#modal-container').classList.add('hide');
-  });
-
-  this.searchKeywordFormView = new _SearchKeywordFormView__WEBPACK_IMPORTED_MODULE_1__["default"]({
-    searchVideoManager: searchVideoManager
-  });
-  this.searchResultView = new _SearchResultView__WEBPACK_IMPORTED_MODULE_2__["default"]({
-    searchVideoManager: searchVideoManager,
-    saveVideoManager: saveVideoManager
-  });
-  (0,_util__WEBPACK_IMPORTED_MODULE_0__.$)('.dimmer').addEventListener('click', this.closeModal);
-  window.addEventListener('keydown', this.onKeyDown);
-});
+  return SearchModalView;
+}();
 
 
 
@@ -758,11 +840,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/js/constants.js");
 /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util */ "./src/js/util/index.js");
 /* harmony import */ var _template__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./template */ "./src/js/View/template.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -770,137 +852,155 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var SearchResultView = /*#__PURE__*/_createClass(function SearchResultView(_ref) {
-  var _this = this;
+var SearchResultView = /*#__PURE__*/function () {
+  function SearchResultView(_ref) {
+    var _this = this;
 
-  var searchVideoManager = _ref.searchVideoManager,
-      saveVideoManager = _ref.saveVideoManager;
+    var searchVideoManager = _ref.searchVideoManager,
+        saveVideoManager = _ref.saveVideoManager;
 
-  _classCallCheck(this, SearchResultView);
+    _classCallCheck(this, SearchResultView);
 
-  _defineProperty(this, "onScrollVideoList", function () {
-    var _this$$searchResultVi = _this.$searchResultVideoList,
-        scrollTop = _this$$searchResultVi.scrollTop,
-        clientHeight = _this$$searchResultVi.clientHeight,
-        scrollHeight = _this$$searchResultVi.scrollHeight;
-    if (scrollTop + clientHeight + 50 < scrollHeight) return;
+    _defineProperty(this, "onScrollVideoList", function () {
+      var _this$$searchResultVi = _this.$searchResultVideoList,
+          scrollTop = _this$$searchResultVi.scrollTop,
+          clientHeight = _this$$searchResultVi.clientHeight,
+          scrollHeight = _this$$searchResultVi.scrollHeight;
+      if (scrollTop + clientHeight + 50 < scrollHeight) return;
 
-    _this.searchVideoManager.searchOnScroll();
-  });
+      _this.searchVideoManager.searchOnScroll();
+    });
 
-  _defineProperty(this, "onClickVideoSaveButton", function (e) {
-    var target = e.target;
+    _defineProperty(this, "onClickVideoSaveButton", function (e) {
+      var target = e.target;
 
-    if (target.classList.contains('video-save-button')) {
-      var video = target.parentNode.dataset;
+      if (target.classList.contains('video-save-button')) {
+        var video = target.parentNode.dataset;
 
-      if (_this.saveVideoManager.saveVideo(video) === _constants__WEBPACK_IMPORTED_MODULE_0__.RESULT.SUCCESS) {
-        target.remove();
+        if (_this.saveVideoManager.saveVideo(video) === _constants__WEBPACK_IMPORTED_MODULE_0__.RESULT.SUCCESS) {
+          target.remove();
+        }
       }
-    }
-  });
+    });
 
-  _defineProperty(this, "updateOnSearchState", function (e) {
-    var searchState = e.detail.searchState;
+    _defineProperty(this, "updateOnSearchState", function (e) {
+      var searchState = e.detail.searchState;
 
-    if (searchState === 'READY') {
-      _this.resetSearchResult();
-    }
+      if (searchState === 'READY') {
+        _this.resetSearchResult();
+      }
 
-    ;
+      ;
 
-    if (searchState === 'LOADING') {
-      _this.updateOnLoading();
-    }
+      if (searchState === 'LOADING') {
+        _this.updateOnLoading();
+      }
 
-    ;
+      ;
 
-    if (searchState === 'SUCCESS') {
-      _this.updateOnNewDataReceived(e.detail.videos);
-    }
+      if (searchState === 'SUCCESS') {
+        _this.updateOnNewDataReceived(e.detail.videos);
+      }
 
-    if (searchState === 'ERROR') {
-      _this.showErrorResult();
-    }
-  });
+      if (searchState === 'ERROR') {
+        _this.showErrorResult();
+      }
+    });
 
-  _defineProperty(this, "resetSearchResult", function () {
-    _this.$searchResultVideoList.scrollTo(0, 0);
+    _defineProperty(this, "resetSearchResult", function () {
+      _this.$searchResultVideoList.scrollTo(0, 0);
 
-    _this.$searchResultVideoList.innerHTML = _template__WEBPACK_IMPORTED_MODULE_2__.template.skeletonListItem();
-    _this.$firstSkeletonListItem = (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('.skeleton', _this.$searchResultVideoList);
-  });
+      _this.$searchResultVideoList.innerHTML = _template__WEBPACK_IMPORTED_MODULE_2__.template.skeletonListItem();
+      _this.$$skeletonItems = (0,_util__WEBPACK_IMPORTED_MODULE_1__.$$)('.skeleton', _this.$searchResultVideoList);
+      _this.$firstSkeletonListItem = (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('.skeleton', _this.$searchResultVideoList);
+    });
 
-  _defineProperty(this, "updateOnLoading", function () {
-    _this.toggleSkeletonListItemVisibility();
-
-    if (_this.$searchResultVideoList.classList.contains('hide')) {
-      _this.showSearchResultVideoList();
-    }
-  });
-
-  _defineProperty(this, "updateOnNewDataReceived", function (videos) {
-    if (videos.length === 0) {
-      _this.showNoResult();
-
+    _defineProperty(this, "updateOnLoading", function () {
       _this.toggleSkeletonListItemVisibility();
 
-      return;
-    }
-
-    var listItems = videos.map(function (video) {
-      return _template__WEBPACK_IMPORTED_MODULE_2__.template.searchResultListItem(video);
-    }).join('');
-
-    _this.$firstSkeletonListItem.insertAdjacentHTML('beforebegin', listItems);
-
-    _this.toggleSkeletonListItemVisibility();
-  });
-
-  _defineProperty(this, "toggleSkeletonListItemVisibility", function () {
-    (0,_util__WEBPACK_IMPORTED_MODULE_1__.$$)('.skeleton', _this.$searchResultVideoList).forEach(function (item) {
-      item.classList.toggle('hide');
+      if (_this.$searchResultVideoList.classList.contains('hide')) {
+        _this.showSearchResultVideoList();
+      }
     });
-  });
 
-  _defineProperty(this, "showSearchResultVideoList", function () {
-    _this.$noResultContainer.classList.add('hide');
+    _defineProperty(this, "updateOnNewDataReceived", function (videos) {
+      if (videos.length === 0) {
+        _this.showNoResult();
 
-    _this.$searchResultVideoList.classList.remove('hide');
+        _this.toggleSkeletonListItemVisibility();
 
-    _this.$searchResultSection.classList.remove('search-result--no-result');
-  });
+        return;
+      }
 
-  _defineProperty(this, "showNoResult", function () {
-    _this.$noResultDescription.innerHTML = _template__WEBPACK_IMPORTED_MODULE_2__.MESSAGE.NO_RESULT;
+      var listItems = videos.map(function (video) {
+        return _template__WEBPACK_IMPORTED_MODULE_2__.template.searchResultListItem(video);
+      }).join('');
 
-    _this.$noResultContainer.classList.remove('hide');
+      _this.$firstSkeletonListItem.insertAdjacentHTML('beforebegin', listItems);
 
-    _this.$searchResultVideoList.classList.add('hide');
+      _this.toggleSkeletonListItemVisibility();
+    });
 
-    _this.$searchResultSection.classList.add('search-result--no-result');
-  });
+    _defineProperty(this, "toggleSkeletonListItemVisibility", function () {
+      _this.$$skeletonItems.forEach(function (item) {
+        item.classList.toggle('hide');
+      });
+    });
 
-  _defineProperty(this, "showErrorResult", function () {
-    _this.$noResultDescription.innerHTML = _template__WEBPACK_IMPORTED_MODULE_2__.MESSAGE.ERROR_RESULT;
+    _defineProperty(this, "showSearchResultVideoList", function () {
+      _this.$noResultContainer.classList.add('hide');
 
-    _this.$noResultContainer.classList.remove('hide');
+      _this.$searchResultVideoList.classList.remove('hide');
 
-    _this.$searchResultVideoList.classList.add('hide');
+      _this.$searchResultSection.classList.remove('search-result--no-result');
+    });
 
-    _this.$searchResultSection.classList.add('search-result--no-result');
-  });
+    _defineProperty(this, "showNoResult", function () {
+      _this.$noResultDescription.innerHTML = _template__WEBPACK_IMPORTED_MODULE_2__.MESSAGE.NO_RESULT;
 
-  this.searchVideoManager = searchVideoManager;
-  this.saveVideoManager = saveVideoManager;
-  this.$searchResultSection = (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('#search-result-section');
-  this.$searchResultVideoList = (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('#search-result-video-list', this.$searchResultSection);
-  this.$noResultContainer = (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('#no-result-container', this.$searchResultSection);
-  this.$noResultDescription = (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('#no-result-description', this.$noResultContainer);
-  this.$searchResultVideoList.addEventListener('scroll', (0,_util__WEBPACK_IMPORTED_MODULE_1__.debounce)(this.onScrollVideoList, 500));
-  this.$searchResultVideoList.addEventListener('click', this.onClickVideoSaveButton);
-  (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('#modal-container').addEventListener(_constants__WEBPACK_IMPORTED_MODULE_0__.EVENT.UPDATE_SEARCH_STATE, this.updateOnSearchState);
-});
+      _this.$noResultContainer.classList.remove('hide');
+
+      _this.$searchResultVideoList.classList.add('hide');
+
+      _this.$searchResultSection.classList.add('search-result--no-result');
+    });
+
+    _defineProperty(this, "showErrorResult", function () {
+      _this.$noResultDescription.innerHTML = _template__WEBPACK_IMPORTED_MODULE_2__.MESSAGE.ERROR_RESULT;
+
+      _this.$noResultContainer.classList.remove('hide');
+
+      _this.$searchResultVideoList.classList.add('hide');
+
+      _this.$searchResultSection.classList.add('search-result--no-result');
+    });
+
+    this.searchVideoManager = searchVideoManager;
+    this.saveVideoManager = saveVideoManager;
+    this.initDOMs();
+    this.bindEvents();
+  }
+
+  _createClass(SearchResultView, [{
+    key: "initDOMs",
+    value: function initDOMs() {
+      this.$modalContainer = (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('#modal-container');
+      this.$searchResultSection = (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('#search-result-section');
+      this.$searchResultVideoList = (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('#search-result-video-list', this.$searchResultSection);
+      this.$noResultContainer = (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('#no-result-container', this.$searchResultSection);
+      this.$noResultDescription = (0,_util__WEBPACK_IMPORTED_MODULE_1__.$)('#no-result-description', this.$noResultContainer);
+    }
+  }, {
+    key: "bindEvents",
+    value: function bindEvents() {
+      this.$searchResultVideoList.addEventListener('scroll', (0,_util__WEBPACK_IMPORTED_MODULE_1__.debounce)(this.onScrollVideoList, 500));
+      this.$searchResultVideoList.addEventListener('click', this.onClickVideoSaveButton);
+      this.$modalContainer.addEventListener(_constants__WEBPACK_IMPORTED_MODULE_0__.EVENT.UPDATE_SEARCH_STATE, this.updateOnSearchState);
+    }
+  }]);
+
+  return SearchResultView;
+}();
 
 
 
@@ -1117,7 +1217,7 @@ function generateFetchURL(keyword, nextPageToken) {
     searchParams.append('pageToken', nextPageToken);
   }
 
-  return YOUTUBE_API_URL + searchParams.toString();
+  return DUMMY_YOUTUBE_API_URL + searchParams.toString();
 }
 
 function fetchYoutubeData(keyword, nextPageToken) {
@@ -1151,7 +1251,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n  padding: 64px 0;\r\n  font-size: 16px;\r\n}\r\n\r\n#app {\r\n  max-width: 1020px;\r\n  margin: 0 auto;\r\n}\r\n\r\n.classroom-container__title {\r\n  text-align: center;\r\n  font-weight: bold;\r\n  line-height: 36px;\r\n  font-size: 24px;\r\n  margin-bottom: 50px;\r\n}\r\n\r\n.nav {\r\n  display: flex;\r\n  justify-content: center;\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.button {\r\n  cursor: pointer;\r\n  border-radius: 4px;\r\n  border: none;\r\n  font-style: normal;\r\n  font-weight: bold;\r\n  font-size: 14px;\r\n  letter-spacing: 1.25px;\r\n}\r\n\r\n.border-radius-left {\r\n  border-radius: 4px 0 0 4px;\r\n}\r\n\r\n.border-radius-right {\r\n  border-radius: 0 4px 4px 0;\r\n}\r\n\r\n.nav__button {\r\n  width: 80px;\r\n  height: 36px;\r\n  background: #f5f5f5;\r\n}\r\n\r\n.nav__button:hover {\r\n  background: #ebebeb;\r\n}\r\n\r\n.nav__button.selected {\r\n  background: rgba(0, 188, 212, 0.12);\r\n}\r\n\r\n.nav__button.selected:hover {\r\n  background: rgba(0, 188, 212, 0.2);\r\n}\r\n\r\n.video-list-button {\r\n  width: 117px;\r\n  border: 1px solid rgba(0, 0, 0, 0.12);\r\n}\r\n\r\n.search-button {\r\n  margin-left: auto;\r\n}\r\n\r\n.align-center {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.classroom-container {\r\n  width: 90vw;\r\n  height: 36px;\r\n}\r\n\r\n.video-list {\r\n  width: 100%;\r\n  display: grid;\r\n  grid-template-columns: repeat(1, 1fr);\r\n  gap: 32px 20px;\r\n}\r\n\r\n.video-list.search {\r\n  height: 493px;\r\n  overflow-y: scroll;\r\n}\r\n\r\n.video-item {\r\n  position: relative;\r\n  width: 240px;\r\n  height: 255px;\r\n  align-self: center;\r\n  justify-self: center;\r\n}\r\n\r\n.video-item__thumbnail {\r\n  width: 100%;\r\n  height: 135px;\r\n}\r\n\r\n.video-item__title {\r\n  font-weight: bold;\r\n  font-size: 16px;\r\n  line-height: 24px;\r\n  letter-spacing: 0.5px;\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  margin: 4px 0;\r\n}\r\n\r\n.video-item__channel-name {\r\n  font-size: 16px;\r\n  line-height: 24px;\r\n  letter-spacing: 0.5px;\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n}\r\n\r\n.video-item__published-date {\r\n  font-size: 12px;\r\n  line-height: 24px;\r\n  letter-spacing: 0.5px;\r\n}\r\n\r\n.video-save-button {\r\n  position: absolute;\r\n  right: 0;\r\n  width: 80px;\r\n  height: 36px;\r\n  background: #f9f9f9;\r\n  margin-top: 4px;\r\n}\r\n\r\n.video-save-button:hover {\r\n  background: #efefef;\r\n}\r\n\r\n.icon-button {\r\n  width: 36px;\r\n  height: 36px;\r\n  background: #f5f5f5;\r\n}\r\n\r\n.icon-button:hover {\r\n  background: #ebebeb;\r\n}\r\n\r\n.icon-button.selected {\r\n  background: rgba(0, 188, 212, 0.12);\r\n}\r\n\r\n.icon-button.selected:hover {\r\n  background: rgba(0, 188, 212, 0.2);\r\n}\r\n\r\n.check-watched-button {\r\n  margin-left: 160px;\r\n}\r\n\r\n@media only screen and (min-width: 400px) {\r\n  .classroom-container {\r\n    width: 368px;\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 600px) {\r\n  .classroom-container {\r\n    width: 500px;\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 34px;\r\n    margin-bottom: 56px;\r\n  }\r\n  .video-list {\r\n    grid-template-columns: repeat(2, 1fr);\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 960px) {\r\n  .classroom-container {\r\n    width: 760px;\r\n  }\r\n  .video-list {\r\n    grid-template-columns: repeat(3, 1fr);\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 1280px) {\r\n  .classroom-container {\r\n    width: 1020px;\r\n  }\r\n  .video-list {\r\n    grid-template-columns: repeat(4, 1fr);\r\n  }\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/app.css"],"names":[],"mappings":"AAAA;EACE,eAAe;EACf,eAAe;AACjB;;AAEA;EACE,iBAAiB;EACjB,cAAc;AAChB;;AAEA;EACE,kBAAkB;EAClB,iBAAiB;EACjB,iBAAiB;EACjB,eAAe;EACf,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,YAAY;EACZ,kBAAkB;EAClB,iBAAiB;EACjB,eAAe;EACf,sBAAsB;AACxB;;AAEA;EACE,0BAA0B;AAC5B;;AAEA;EACE,0BAA0B;AAC5B;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,mBAAmB;AACrB;;AAEA;EACE,mBAAmB;AACrB;;AAEA;EACE,mCAAmC;AACrC;;AAEA;EACE,kCAAkC;AACpC;;AAEA;EACE,YAAY;EACZ,qCAAqC;AACvC;;AAEA;EACE,iBAAiB;AACnB;;AAEA;EACE,iBAAiB;EACjB,kBAAkB;AACpB;;AAEA;EACE,WAAW;EACX,YAAY;AACd;;AAEA;EACE,WAAW;EACX,aAAa;EACb,qCAAqC;EACrC,cAAc;AAChB;;AAEA;EACE,aAAa;EACb,kBAAkB;AACpB;;AAEA;EACE,kBAAkB;EAClB,YAAY;EACZ,aAAa;EACb,kBAAkB;EAClB,oBAAoB;AACtB;;AAEA;EACE,WAAW;EACX,aAAa;AACf;;AAEA;EACE,iBAAiB;EACjB,eAAe;EACf,iBAAiB;EACjB,qBAAqB;EACrB,mBAAmB;EACnB,gBAAgB;EAChB,uBAAuB;EACvB,aAAa;AACf;;AAEA;EACE,eAAe;EACf,iBAAiB;EACjB,qBAAqB;EACrB,mBAAmB;EACnB,gBAAgB;EAChB,uBAAuB;AACzB;;AAEA;EACE,eAAe;EACf,iBAAiB;EACjB,qBAAqB;AACvB;;AAEA;EACE,kBAAkB;EAClB,QAAQ;EACR,WAAW;EACX,YAAY;EACZ,mBAAmB;EACnB,eAAe;AACjB;;AAEA;EACE,mBAAmB;AACrB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,mBAAmB;AACrB;;AAEA;EACE,mBAAmB;AACrB;;AAEA;EACE,mCAAmC;AACrC;;AAEA;EACE,kCAAkC;AACpC;;AAEA;EACE,kBAAkB;AACpB;;AAEA;EACE;IACE,YAAY;EACd;AACF;;AAEA;EACE;IACE,YAAY;EACd;EACA;IACE,eAAe;IACf,mBAAmB;EACrB;EACA;IACE,qCAAqC;EACvC;AACF;;AAEA;EACE;IACE,YAAY;EACd;EACA;IACE,qCAAqC;EACvC;AACF;;AAEA;EACE;IACE,aAAa;EACf;EACA;IACE,qCAAqC;EACvC;AACF","sourcesContent":["body {\r\n  padding: 64px 0;\r\n  font-size: 16px;\r\n}\r\n\r\n#app {\r\n  max-width: 1020px;\r\n  margin: 0 auto;\r\n}\r\n\r\n.classroom-container__title {\r\n  text-align: center;\r\n  font-weight: bold;\r\n  line-height: 36px;\r\n  font-size: 24px;\r\n  margin-bottom: 50px;\r\n}\r\n\r\n.nav {\r\n  display: flex;\r\n  justify-content: center;\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.button {\r\n  cursor: pointer;\r\n  border-radius: 4px;\r\n  border: none;\r\n  font-style: normal;\r\n  font-weight: bold;\r\n  font-size: 14px;\r\n  letter-spacing: 1.25px;\r\n}\r\n\r\n.border-radius-left {\r\n  border-radius: 4px 0 0 4px;\r\n}\r\n\r\n.border-radius-right {\r\n  border-radius: 0 4px 4px 0;\r\n}\r\n\r\n.nav__button {\r\n  width: 80px;\r\n  height: 36px;\r\n  background: #f5f5f5;\r\n}\r\n\r\n.nav__button:hover {\r\n  background: #ebebeb;\r\n}\r\n\r\n.nav__button.selected {\r\n  background: rgba(0, 188, 212, 0.12);\r\n}\r\n\r\n.nav__button.selected:hover {\r\n  background: rgba(0, 188, 212, 0.2);\r\n}\r\n\r\n.video-list-button {\r\n  width: 117px;\r\n  border: 1px solid rgba(0, 0, 0, 0.12);\r\n}\r\n\r\n.search-button {\r\n  margin-left: auto;\r\n}\r\n\r\n.align-center {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.classroom-container {\r\n  width: 90vw;\r\n  height: 36px;\r\n}\r\n\r\n.video-list {\r\n  width: 100%;\r\n  display: grid;\r\n  grid-template-columns: repeat(1, 1fr);\r\n  gap: 32px 20px;\r\n}\r\n\r\n.video-list.search {\r\n  height: 493px;\r\n  overflow-y: scroll;\r\n}\r\n\r\n.video-item {\r\n  position: relative;\r\n  width: 240px;\r\n  height: 255px;\r\n  align-self: center;\r\n  justify-self: center;\r\n}\r\n\r\n.video-item__thumbnail {\r\n  width: 100%;\r\n  height: 135px;\r\n}\r\n\r\n.video-item__title {\r\n  font-weight: bold;\r\n  font-size: 16px;\r\n  line-height: 24px;\r\n  letter-spacing: 0.5px;\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  margin: 4px 0;\r\n}\r\n\r\n.video-item__channel-name {\r\n  font-size: 16px;\r\n  line-height: 24px;\r\n  letter-spacing: 0.5px;\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n}\r\n\r\n.video-item__published-date {\r\n  font-size: 12px;\r\n  line-height: 24px;\r\n  letter-spacing: 0.5px;\r\n}\r\n\r\n.video-save-button {\r\n  position: absolute;\r\n  right: 0;\r\n  width: 80px;\r\n  height: 36px;\r\n  background: #f9f9f9;\r\n  margin-top: 4px;\r\n}\r\n\r\n.video-save-button:hover {\r\n  background: #efefef;\r\n}\r\n\r\n.icon-button {\r\n  width: 36px;\r\n  height: 36px;\r\n  background: #f5f5f5;\r\n}\r\n\r\n.icon-button:hover {\r\n  background: #ebebeb;\r\n}\r\n\r\n.icon-button.selected {\r\n  background: rgba(0, 188, 212, 0.12);\r\n}\r\n\r\n.icon-button.selected:hover {\r\n  background: rgba(0, 188, 212, 0.2);\r\n}\r\n\r\n.check-watched-button {\r\n  margin-left: 160px;\r\n}\r\n\r\n@media only screen and (min-width: 400px) {\r\n  .classroom-container {\r\n    width: 368px;\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 600px) {\r\n  .classroom-container {\r\n    width: 500px;\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 34px;\r\n    margin-bottom: 56px;\r\n  }\r\n  .video-list {\r\n    grid-template-columns: repeat(2, 1fr);\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 960px) {\r\n  .classroom-container {\r\n    width: 760px;\r\n  }\r\n  .video-list {\r\n    grid-template-columns: repeat(3, 1fr);\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 1280px) {\r\n  .classroom-container {\r\n    width: 1020px;\r\n  }\r\n  .video-list {\r\n    grid-template-columns: repeat(4, 1fr);\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n  padding: 64px 0;\r\n  font-size: 16px;\r\n}\r\n\r\n#app {\r\n  max-width: 1020px;\r\n  margin: 0 auto;\r\n}\r\n\r\n.classroom-container__title {\r\n  text-align: center;\r\n  font-weight: bold;\r\n  line-height: 36px;\r\n  font-size: 24px;\r\n  margin-bottom: 50px;\r\n}\r\n\r\n.nav {\r\n  display: flex;\r\n  justify-content: center;\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.button {\r\n  cursor: pointer;\r\n  border-radius: 4px;\r\n  border: none;\r\n  font-style: normal;\r\n  font-weight: bold;\r\n  font-size: 14px;\r\n  letter-spacing: 1.25px;\r\n}\r\n\r\n.border-radius-left {\r\n  border-radius: 4px 0 0 4px;\r\n}\r\n\r\n.border-radius-right {\r\n  border-radius: 0 4px 4px 0;\r\n}\r\n\r\n.nav__button {\r\n  width: 80px;\r\n  height: 36px;\r\n  background: #f5f5f5;\r\n}\r\n\r\n.nav__button:hover {\r\n  background: #ebebeb;\r\n}\r\n\r\n.nav__button.selected {\r\n  background: rgba(0, 188, 212, 0.12);\r\n}\r\n\r\n.nav__button.selected:hover {\r\n  background: rgba(0, 188, 212, 0.2);\r\n}\r\n\r\n.video-list-button {\r\n  width: 117px;\r\n  border: 1px solid rgba(0, 0, 0, 0.12);\r\n}\r\n\r\n.search-button {\r\n  margin-left: auto;\r\n}\r\n\r\n.align-center {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.classroom-container {\r\n  width: 90vw;\r\n  height: 36px;\r\n}\r\n\r\n.video-list {\r\n  width: 100%;\r\n  display: grid;\r\n  grid-template-columns: repeat(1, 1fr);\r\n  gap: 32px 20px;\r\n}\r\n\r\n.video-list.search {\r\n  height: calc(80vh - 250px);\r\n  overflow-y: scroll;\r\n}\r\n\r\n.video-item {\r\n  position: relative;\r\n  width: 240px;\r\n  height: 255px;\r\n  align-self: center;\r\n  justify-self: center;\r\n}\r\n\r\n.video-item__thumbnail {\r\n  width: 100%;\r\n  height: 135px;\r\n}\r\n\r\n.video-item__title {\r\n  font-weight: bold;\r\n  font-size: 16px;\r\n  line-height: 24px;\r\n  letter-spacing: 0.5px;\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  margin: 4px 0;\r\n}\r\n\r\n.video-item__channel-name {\r\n  font-size: 16px;\r\n  line-height: 24px;\r\n  letter-spacing: 0.5px;\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n}\r\n\r\n.video-item__published-date {\r\n  font-size: 12px;\r\n  line-height: 24px;\r\n  letter-spacing: 0.5px;\r\n}\r\n\r\n.video-save-button {\r\n  position: absolute;\r\n  right: 0;\r\n  width: 80px;\r\n  height: 36px;\r\n  background: #f9f9f9;\r\n  margin-top: 4px;\r\n}\r\n\r\n.video-save-button:hover {\r\n  background: #efefef;\r\n}\r\n\r\n.icon-button {\r\n  width: 36px;\r\n  height: 36px;\r\n  background: #f5f5f5;\r\n}\r\n\r\n.icon-button:hover {\r\n  background: #ebebeb;\r\n}\r\n\r\n.icon-button.selected {\r\n  background: rgba(0, 188, 212, 0.12);\r\n}\r\n\r\n.icon-button.selected:hover {\r\n  background: rgba(0, 188, 212, 0.2);\r\n}\r\n\r\n.check-watched-button {\r\n  margin-left: 160px;\r\n}\r\n\r\n@media only screen and (min-width: 400px) {\r\n  .classroom-container {\r\n    width: 368px;\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 600px) {\r\n  .classroom-container {\r\n    width: 500px;\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 34px;\r\n    margin-bottom: 56px;\r\n  }\r\n  .video-list {\r\n    grid-template-columns: repeat(2, 1fr);\r\n  }\r\n  .video-list.search {\r\n    height: 493px;\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 960px) {\r\n  .classroom-container {\r\n    width: 760px;\r\n  }\r\n  .video-list {\r\n    grid-template-columns: repeat(3, 1fr);\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 1280px) {\r\n  .classroom-container {\r\n    width: 1020px;\r\n  }\r\n  .video-list {\r\n    grid-template-columns: repeat(4, 1fr);\r\n  }\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/app.css"],"names":[],"mappings":"AAAA;EACE,eAAe;EACf,eAAe;AACjB;;AAEA;EACE,iBAAiB;EACjB,cAAc;AAChB;;AAEA;EACE,kBAAkB;EAClB,iBAAiB;EACjB,iBAAiB;EACjB,eAAe;EACf,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,YAAY;EACZ,kBAAkB;EAClB,iBAAiB;EACjB,eAAe;EACf,sBAAsB;AACxB;;AAEA;EACE,0BAA0B;AAC5B;;AAEA;EACE,0BAA0B;AAC5B;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,mBAAmB;AACrB;;AAEA;EACE,mBAAmB;AACrB;;AAEA;EACE,mCAAmC;AACrC;;AAEA;EACE,kCAAkC;AACpC;;AAEA;EACE,YAAY;EACZ,qCAAqC;AACvC;;AAEA;EACE,iBAAiB;AACnB;;AAEA;EACE,iBAAiB;EACjB,kBAAkB;AACpB;;AAEA;EACE,WAAW;EACX,YAAY;AACd;;AAEA;EACE,WAAW;EACX,aAAa;EACb,qCAAqC;EACrC,cAAc;AAChB;;AAEA;EACE,0BAA0B;EAC1B,kBAAkB;AACpB;;AAEA;EACE,kBAAkB;EAClB,YAAY;EACZ,aAAa;EACb,kBAAkB;EAClB,oBAAoB;AACtB;;AAEA;EACE,WAAW;EACX,aAAa;AACf;;AAEA;EACE,iBAAiB;EACjB,eAAe;EACf,iBAAiB;EACjB,qBAAqB;EACrB,mBAAmB;EACnB,gBAAgB;EAChB,uBAAuB;EACvB,aAAa;AACf;;AAEA;EACE,eAAe;EACf,iBAAiB;EACjB,qBAAqB;EACrB,mBAAmB;EACnB,gBAAgB;EAChB,uBAAuB;AACzB;;AAEA;EACE,eAAe;EACf,iBAAiB;EACjB,qBAAqB;AACvB;;AAEA;EACE,kBAAkB;EAClB,QAAQ;EACR,WAAW;EACX,YAAY;EACZ,mBAAmB;EACnB,eAAe;AACjB;;AAEA;EACE,mBAAmB;AACrB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,mBAAmB;AACrB;;AAEA;EACE,mBAAmB;AACrB;;AAEA;EACE,mCAAmC;AACrC;;AAEA;EACE,kCAAkC;AACpC;;AAEA;EACE,kBAAkB;AACpB;;AAEA;EACE;IACE,YAAY;EACd;AACF;;AAEA;EACE;IACE,YAAY;EACd;EACA;IACE,eAAe;IACf,mBAAmB;EACrB;EACA;IACE,qCAAqC;EACvC;EACA;IACE,aAAa;EACf;AACF;;AAEA;EACE;IACE,YAAY;EACd;EACA;IACE,qCAAqC;EACvC;AACF;;AAEA;EACE;IACE,aAAa;EACf;EACA;IACE,qCAAqC;EACvC;AACF","sourcesContent":["body {\r\n  padding: 64px 0;\r\n  font-size: 16px;\r\n}\r\n\r\n#app {\r\n  max-width: 1020px;\r\n  margin: 0 auto;\r\n}\r\n\r\n.classroom-container__title {\r\n  text-align: center;\r\n  font-weight: bold;\r\n  line-height: 36px;\r\n  font-size: 24px;\r\n  margin-bottom: 50px;\r\n}\r\n\r\n.nav {\r\n  display: flex;\r\n  justify-content: center;\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.button {\r\n  cursor: pointer;\r\n  border-radius: 4px;\r\n  border: none;\r\n  font-style: normal;\r\n  font-weight: bold;\r\n  font-size: 14px;\r\n  letter-spacing: 1.25px;\r\n}\r\n\r\n.border-radius-left {\r\n  border-radius: 4px 0 0 4px;\r\n}\r\n\r\n.border-radius-right {\r\n  border-radius: 0 4px 4px 0;\r\n}\r\n\r\n.nav__button {\r\n  width: 80px;\r\n  height: 36px;\r\n  background: #f5f5f5;\r\n}\r\n\r\n.nav__button:hover {\r\n  background: #ebebeb;\r\n}\r\n\r\n.nav__button.selected {\r\n  background: rgba(0, 188, 212, 0.12);\r\n}\r\n\r\n.nav__button.selected:hover {\r\n  background: rgba(0, 188, 212, 0.2);\r\n}\r\n\r\n.video-list-button {\r\n  width: 117px;\r\n  border: 1px solid rgba(0, 0, 0, 0.12);\r\n}\r\n\r\n.search-button {\r\n  margin-left: auto;\r\n}\r\n\r\n.align-center {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.classroom-container {\r\n  width: 90vw;\r\n  height: 36px;\r\n}\r\n\r\n.video-list {\r\n  width: 100%;\r\n  display: grid;\r\n  grid-template-columns: repeat(1, 1fr);\r\n  gap: 32px 20px;\r\n}\r\n\r\n.video-list.search {\r\n  height: calc(80vh - 250px);\r\n  overflow-y: scroll;\r\n}\r\n\r\n.video-item {\r\n  position: relative;\r\n  width: 240px;\r\n  height: 255px;\r\n  align-self: center;\r\n  justify-self: center;\r\n}\r\n\r\n.video-item__thumbnail {\r\n  width: 100%;\r\n  height: 135px;\r\n}\r\n\r\n.video-item__title {\r\n  font-weight: bold;\r\n  font-size: 16px;\r\n  line-height: 24px;\r\n  letter-spacing: 0.5px;\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  margin: 4px 0;\r\n}\r\n\r\n.video-item__channel-name {\r\n  font-size: 16px;\r\n  line-height: 24px;\r\n  letter-spacing: 0.5px;\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n}\r\n\r\n.video-item__published-date {\r\n  font-size: 12px;\r\n  line-height: 24px;\r\n  letter-spacing: 0.5px;\r\n}\r\n\r\n.video-save-button {\r\n  position: absolute;\r\n  right: 0;\r\n  width: 80px;\r\n  height: 36px;\r\n  background: #f9f9f9;\r\n  margin-top: 4px;\r\n}\r\n\r\n.video-save-button:hover {\r\n  background: #efefef;\r\n}\r\n\r\n.icon-button {\r\n  width: 36px;\r\n  height: 36px;\r\n  background: #f5f5f5;\r\n}\r\n\r\n.icon-button:hover {\r\n  background: #ebebeb;\r\n}\r\n\r\n.icon-button.selected {\r\n  background: rgba(0, 188, 212, 0.12);\r\n}\r\n\r\n.icon-button.selected:hover {\r\n  background: rgba(0, 188, 212, 0.2);\r\n}\r\n\r\n.check-watched-button {\r\n  margin-left: 160px;\r\n}\r\n\r\n@media only screen and (min-width: 400px) {\r\n  .classroom-container {\r\n    width: 368px;\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 600px) {\r\n  .classroom-container {\r\n    width: 500px;\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 34px;\r\n    margin-bottom: 56px;\r\n  }\r\n  .video-list {\r\n    grid-template-columns: repeat(2, 1fr);\r\n  }\r\n  .video-list.search {\r\n    height: 493px;\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 960px) {\r\n  .classroom-container {\r\n    width: 760px;\r\n  }\r\n  .video-list {\r\n    grid-template-columns: repeat(3, 1fr);\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 1280px) {\r\n  .classroom-container {\r\n    width: 1020px;\r\n  }\r\n  .video-list {\r\n    grid-template-columns: repeat(4, 1fr);\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1209,7 +1309,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".modal-container {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 100vw;\r\n  height: 100vh;\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n}\r\n\r\n.dimmer {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n  background: rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n.search-modal {\r\n  position: relative;\r\n  width: 90vw;\r\n  height: 727px;\r\n  background: #ffffff;\r\n  border: 1px solid rgba(0, 0, 0, 0.12);\r\n  border-radius: 4px;\r\n  padding: 50px 30px 32px 30px;\r\n}\r\n\r\n.search-modal__title {\r\n  text-align: center;\r\n  font-weight: bold;\r\n  font-size: 24px;\r\n  line-height: 36px;\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.search-input {\r\n  display: flex;\r\n  justify-content: center;\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.search-input__keyword {\r\n  width: 60%;\r\n  height: 36px;\r\n  margin-right: 20px;\r\n  padding: 4px 8px;\r\n  border: 1px solid #b4b4b4;\r\n  border-radius: 4px;\r\n}\r\n\r\n.search-input__keyword::placeholder {\r\n  color: #8b8b8b;\r\n  font-size: 16px;\r\n}\r\n\r\n.search-input__search-button {\r\n  width: 72px;\r\n  height: 36px;\r\n  background: #00bcd4;\r\n  color: #ffffff;\r\n}\r\n\r\n.search-result.search-result--no-result {\r\n  height: 493px;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n}\r\n\r\n.no-result {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n}\r\n\r\n.no-result__image {\r\n  width: 190px;\r\n  height: 140px;\r\n  margin-bottom: 32px;\r\n}\r\n\r\n.no-result__description {\r\n  font-size: 16px;\r\n  line-height: 150%;\r\n  text-align: center;\r\n  letter-spacing: 0.5px;\r\n}\r\n\r\n.skeleton {\r\n  width: 240px;\r\n  align-self: center;\r\n  justify-self: center;\r\n}\r\n\r\n.skeleton .image,\r\n.skeleton .line {\r\n  background-image: linear-gradient(90deg, #e0e0e0 0px, #ededed 30px, #e0e0e0 60px);\r\n  animation: refresh 2s infinite ease-out;\r\n}\r\n\r\n.skeleton .image {\r\n  height: 135px;\r\n}\r\n\r\n.skeleton .line {\r\n  height: 24px;\r\n  margin: 6px 0;\r\n}\r\n\r\n.skeleton .line:first-child {\r\n  width: 50%;\r\n}\r\n\r\n.skeleton .line:last-child {\r\n  width: 80%;\r\n}\r\n\r\n@keyframes refresh {\r\n  0% {\r\n    background-position: calc(-100px);\r\n  }\r\n  40%,\r\n  100% {\r\n    background-position: 320px;\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 500px) {\r\n  .search-modal {\r\n    width: 448px;\r\n  }\r\n  .search-input__keyword {\r\n    width: 280px;\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 600px) {\r\n  .search-modal {\r\n    width: 580px;\r\n  }\r\n  .search-modal__title {\r\n    font-size: 34px;\r\n  }\r\n  .search-input__keyword {\r\n    width: 400px;\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 960px) {\r\n  .search-modal {\r\n    width: 840px;\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 1280px) {\r\n  .search-modal {\r\n    width: 1100px;\r\n  }\r\n}\r\n\r\n.hide {\r\n  display: none;\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/modal.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,mBAAmB;EACnB,uBAAuB;EACvB,YAAY;EACZ,aAAa;EACb,eAAe;EACf,MAAM;EACN,OAAO;AACT;;AAEA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,8BAA8B;AAChC;;AAEA;EACE,kBAAkB;EAClB,WAAW;EACX,aAAa;EACb,mBAAmB;EACnB,qCAAqC;EACrC,kBAAkB;EAClB,4BAA4B;AAC9B;;AAEA;EACE,kBAAkB;EAClB,iBAAiB;EACjB,eAAe;EACf,iBAAiB;EACjB,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,mBAAmB;AACrB;;AAEA;EACE,UAAU;EACV,YAAY;EACZ,kBAAkB;EAClB,gBAAgB;EAChB,yBAAyB;EACzB,kBAAkB;AACpB;;AAEA;EACE,cAAc;EACd,eAAe;AACjB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,mBAAmB;EACnB,cAAc;AAChB;;AAEA;EACE,aAAa;EACb,aAAa;EACb,uBAAuB;EACvB,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,uBAAuB;AACzB;;AAEA;EACE,YAAY;EACZ,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,iBAAiB;EACjB,kBAAkB;EAClB,qBAAqB;AACvB;;AAEA;EACE,YAAY;EACZ,kBAAkB;EAClB,oBAAoB;AACtB;;AAEA;;EAEE,iFAAiF;EACjF,uCAAuC;AACzC;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,YAAY;EACZ,aAAa;AACf;;AAEA;EACE,UAAU;AACZ;;AAEA;EACE,UAAU;AACZ;;AAEA;EACE;IACE,iCAAiC;EACnC;EACA;;IAEE,0BAA0B;EAC5B;AACF;;AAEA;EACE;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;AACF;;AAEA;EACE;IACE,YAAY;EACd;EACA;IACE,eAAe;EACjB;EACA;IACE,YAAY;EACd;AACF;;AAEA;EACE;IACE,YAAY;EACd;AACF;;AAEA;EACE;IACE,aAAa;EACf;AACF;;AAEA;EACE,aAAa;AACf","sourcesContent":[".modal-container {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 100vw;\r\n  height: 100vh;\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n}\r\n\r\n.dimmer {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n  background: rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n.search-modal {\r\n  position: relative;\r\n  width: 90vw;\r\n  height: 727px;\r\n  background: #ffffff;\r\n  border: 1px solid rgba(0, 0, 0, 0.12);\r\n  border-radius: 4px;\r\n  padding: 50px 30px 32px 30px;\r\n}\r\n\r\n.search-modal__title {\r\n  text-align: center;\r\n  font-weight: bold;\r\n  font-size: 24px;\r\n  line-height: 36px;\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.search-input {\r\n  display: flex;\r\n  justify-content: center;\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.search-input__keyword {\r\n  width: 60%;\r\n  height: 36px;\r\n  margin-right: 20px;\r\n  padding: 4px 8px;\r\n  border: 1px solid #b4b4b4;\r\n  border-radius: 4px;\r\n}\r\n\r\n.search-input__keyword::placeholder {\r\n  color: #8b8b8b;\r\n  font-size: 16px;\r\n}\r\n\r\n.search-input__search-button {\r\n  width: 72px;\r\n  height: 36px;\r\n  background: #00bcd4;\r\n  color: #ffffff;\r\n}\r\n\r\n.search-result.search-result--no-result {\r\n  height: 493px;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n}\r\n\r\n.no-result {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n}\r\n\r\n.no-result__image {\r\n  width: 190px;\r\n  height: 140px;\r\n  margin-bottom: 32px;\r\n}\r\n\r\n.no-result__description {\r\n  font-size: 16px;\r\n  line-height: 150%;\r\n  text-align: center;\r\n  letter-spacing: 0.5px;\r\n}\r\n\r\n.skeleton {\r\n  width: 240px;\r\n  align-self: center;\r\n  justify-self: center;\r\n}\r\n\r\n.skeleton .image,\r\n.skeleton .line {\r\n  background-image: linear-gradient(90deg, #e0e0e0 0px, #ededed 30px, #e0e0e0 60px);\r\n  animation: refresh 2s infinite ease-out;\r\n}\r\n\r\n.skeleton .image {\r\n  height: 135px;\r\n}\r\n\r\n.skeleton .line {\r\n  height: 24px;\r\n  margin: 6px 0;\r\n}\r\n\r\n.skeleton .line:first-child {\r\n  width: 50%;\r\n}\r\n\r\n.skeleton .line:last-child {\r\n  width: 80%;\r\n}\r\n\r\n@keyframes refresh {\r\n  0% {\r\n    background-position: calc(-100px);\r\n  }\r\n  40%,\r\n  100% {\r\n    background-position: 320px;\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 500px) {\r\n  .search-modal {\r\n    width: 448px;\r\n  }\r\n  .search-input__keyword {\r\n    width: 280px;\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 600px) {\r\n  .search-modal {\r\n    width: 580px;\r\n  }\r\n  .search-modal__title {\r\n    font-size: 34px;\r\n  }\r\n  .search-input__keyword {\r\n    width: 400px;\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 960px) {\r\n  .search-modal {\r\n    width: 840px;\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 1280px) {\r\n  .search-modal {\r\n    width: 1100px;\r\n  }\r\n}\r\n\r\n.hide {\r\n  display: none;\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".modal-container {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 100vw;\r\n  height: 100vh;\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n}\r\n\r\n.dimmer {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n  background: rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n.search-modal {\r\n  position: relative;\r\n  width: 90vw;\r\n  height: 80vh;\r\n  background: #ffffff;\r\n  border: 1px solid rgba(0, 0, 0, 0.12);\r\n  border-radius: 4px;\r\n  padding: 50px 30px 32px 30px;\r\n}\r\n\r\n.search-modal__title {\r\n  text-align: center;\r\n  font-weight: bold;\r\n  font-size: 24px;\r\n  line-height: 36px;\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.search-input {\r\n  display: flex;\r\n  justify-content: center;\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.search-input__keyword {\r\n  width: 60%;\r\n  height: 36px;\r\n  margin-right: 20px;\r\n  padding: 4px 8px;\r\n  border: 1px solid #b4b4b4;\r\n  border-radius: 4px;\r\n}\r\n\r\n.search-input__keyword::placeholder {\r\n  color: #8b8b8b;\r\n  font-size: 16px;\r\n}\r\n\r\n.search-input__search-button {\r\n  width: 72px;\r\n  height: 36px;\r\n  background: #00bcd4;\r\n  color: #ffffff;\r\n}\r\n\r\n.search-result.search-result--no-result {\r\n  height: 493px;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n}\r\n\r\n.no-result {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n}\r\n\r\n.no-result__image {\r\n  width: 190px;\r\n  height: 140px;\r\n  margin-bottom: 32px;\r\n}\r\n\r\n.no-result__description {\r\n  font-size: 16px;\r\n  line-height: 150%;\r\n  text-align: center;\r\n  letter-spacing: 0.5px;\r\n}\r\n\r\n.skeleton {\r\n  width: 240px;\r\n  align-self: center;\r\n  justify-self: center;\r\n}\r\n\r\n.skeleton .image,\r\n.skeleton .line {\r\n  background-image: linear-gradient(90deg, #e0e0e0 0px, #ededed 30px, #e0e0e0 60px);\r\n  animation: refresh 2s infinite ease-out;\r\n}\r\n\r\n.skeleton .image {\r\n  height: 135px;\r\n}\r\n\r\n.skeleton .line {\r\n  height: 24px;\r\n  margin: 6px 0;\r\n}\r\n\r\n.skeleton .line:first-child {\r\n  width: 50%;\r\n}\r\n\r\n.skeleton .line:last-child {\r\n  width: 80%;\r\n}\r\n\r\n@keyframes refresh {\r\n  0% {\r\n    background-position: calc(-100px);\r\n  }\r\n  40%,\r\n  100% {\r\n    background-position: 320px;\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 500px) {\r\n  .search-modal {\r\n    width: 448px;\r\n    height: 727px;\r\n  }\r\n  .search-input__keyword {\r\n    width: 280px;\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 600px) {\r\n  .search-modal {\r\n    width: 580px;\r\n  }\r\n  .search-modal__title {\r\n    font-size: 34px;\r\n  }\r\n  .search-input__keyword {\r\n    width: 400px;\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 960px) {\r\n  .search-modal {\r\n    width: 840px;\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 1280px) {\r\n  .search-modal {\r\n    width: 1100px;\r\n  }\r\n}\r\n\r\n.hide {\r\n  display: none;\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/modal.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,mBAAmB;EACnB,uBAAuB;EACvB,YAAY;EACZ,aAAa;EACb,eAAe;EACf,MAAM;EACN,OAAO;AACT;;AAEA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,8BAA8B;AAChC;;AAEA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,mBAAmB;EACnB,qCAAqC;EACrC,kBAAkB;EAClB,4BAA4B;AAC9B;;AAEA;EACE,kBAAkB;EAClB,iBAAiB;EACjB,eAAe;EACf,iBAAiB;EACjB,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,mBAAmB;AACrB;;AAEA;EACE,UAAU;EACV,YAAY;EACZ,kBAAkB;EAClB,gBAAgB;EAChB,yBAAyB;EACzB,kBAAkB;AACpB;;AAEA;EACE,cAAc;EACd,eAAe;AACjB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,mBAAmB;EACnB,cAAc;AAChB;;AAEA;EACE,aAAa;EACb,aAAa;EACb,uBAAuB;EACvB,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,uBAAuB;AACzB;;AAEA;EACE,YAAY;EACZ,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,iBAAiB;EACjB,kBAAkB;EAClB,qBAAqB;AACvB;;AAEA;EACE,YAAY;EACZ,kBAAkB;EAClB,oBAAoB;AACtB;;AAEA;;EAEE,iFAAiF;EACjF,uCAAuC;AACzC;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,YAAY;EACZ,aAAa;AACf;;AAEA;EACE,UAAU;AACZ;;AAEA;EACE,UAAU;AACZ;;AAEA;EACE;IACE,iCAAiC;EACnC;EACA;;IAEE,0BAA0B;EAC5B;AACF;;AAEA;EACE;IACE,YAAY;IACZ,aAAa;EACf;EACA;IACE,YAAY;EACd;AACF;;AAEA;EACE;IACE,YAAY;EACd;EACA;IACE,eAAe;EACjB;EACA;IACE,YAAY;EACd;AACF;;AAEA;EACE;IACE,YAAY;EACd;AACF;;AAEA;EACE;IACE,aAAa;EACf;AACF;;AAEA;EACE,aAAa;AACf","sourcesContent":[".modal-container {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 100vw;\r\n  height: 100vh;\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n}\r\n\r\n.dimmer {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n  background: rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n.search-modal {\r\n  position: relative;\r\n  width: 90vw;\r\n  height: 80vh;\r\n  background: #ffffff;\r\n  border: 1px solid rgba(0, 0, 0, 0.12);\r\n  border-radius: 4px;\r\n  padding: 50px 30px 32px 30px;\r\n}\r\n\r\n.search-modal__title {\r\n  text-align: center;\r\n  font-weight: bold;\r\n  font-size: 24px;\r\n  line-height: 36px;\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.search-input {\r\n  display: flex;\r\n  justify-content: center;\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.search-input__keyword {\r\n  width: 60%;\r\n  height: 36px;\r\n  margin-right: 20px;\r\n  padding: 4px 8px;\r\n  border: 1px solid #b4b4b4;\r\n  border-radius: 4px;\r\n}\r\n\r\n.search-input__keyword::placeholder {\r\n  color: #8b8b8b;\r\n  font-size: 16px;\r\n}\r\n\r\n.search-input__search-button {\r\n  width: 72px;\r\n  height: 36px;\r\n  background: #00bcd4;\r\n  color: #ffffff;\r\n}\r\n\r\n.search-result.search-result--no-result {\r\n  height: 493px;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n}\r\n\r\n.no-result {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n}\r\n\r\n.no-result__image {\r\n  width: 190px;\r\n  height: 140px;\r\n  margin-bottom: 32px;\r\n}\r\n\r\n.no-result__description {\r\n  font-size: 16px;\r\n  line-height: 150%;\r\n  text-align: center;\r\n  letter-spacing: 0.5px;\r\n}\r\n\r\n.skeleton {\r\n  width: 240px;\r\n  align-self: center;\r\n  justify-self: center;\r\n}\r\n\r\n.skeleton .image,\r\n.skeleton .line {\r\n  background-image: linear-gradient(90deg, #e0e0e0 0px, #ededed 30px, #e0e0e0 60px);\r\n  animation: refresh 2s infinite ease-out;\r\n}\r\n\r\n.skeleton .image {\r\n  height: 135px;\r\n}\r\n\r\n.skeleton .line {\r\n  height: 24px;\r\n  margin: 6px 0;\r\n}\r\n\r\n.skeleton .line:first-child {\r\n  width: 50%;\r\n}\r\n\r\n.skeleton .line:last-child {\r\n  width: 80%;\r\n}\r\n\r\n@keyframes refresh {\r\n  0% {\r\n    background-position: calc(-100px);\r\n  }\r\n  40%,\r\n  100% {\r\n    background-position: 320px;\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 500px) {\r\n  .search-modal {\r\n    width: 448px;\r\n    height: 727px;\r\n  }\r\n  .search-input__keyword {\r\n    width: 280px;\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 600px) {\r\n  .search-modal {\r\n    width: 580px;\r\n  }\r\n  .search-modal__title {\r\n    font-size: 34px;\r\n  }\r\n  .search-input__keyword {\r\n    width: 400px;\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 960px) {\r\n  .search-modal {\r\n    width: 840px;\r\n  }\r\n}\r\n\r\n@media only screen and (min-width: 1280px) {\r\n  .search-modal {\r\n    width: 1100px;\r\n  }\r\n}\r\n\r\n.hide {\r\n  display: none;\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
