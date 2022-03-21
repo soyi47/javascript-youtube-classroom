@@ -1217,7 +1217,7 @@ function generateFetchURL(keyword, nextPageToken) {
     searchParams.append('pageToken', nextPageToken);
   }
 
-  return DUMMY_YOUTUBE_API_URL + searchParams.toString();
+  return YOUTUBE_API_URL + searchParams.toString();
 }
 
 function fetchYoutubeData(keyword, nextPageToken) {
